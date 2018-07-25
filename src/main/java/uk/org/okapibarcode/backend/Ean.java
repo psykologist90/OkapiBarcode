@@ -247,7 +247,7 @@ public class Ean extends Symbol {
         int x, y, w, h;
         boolean black;
         int compositeOffset = 0;
-        int shortLongDiff = 5;
+        int shortLongDiff = 0;
 
         rectangles.clear();
         texts.clear();

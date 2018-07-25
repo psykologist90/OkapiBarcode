@@ -26,12 +26,7 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.imageio.ImageIO;
 
@@ -185,6 +180,25 @@ public class SymbolTest {
         } else {
             addMissingExpectations(symbol, actualError);
         }
+    }
+
+    @Test
+    public void test_neweans() throws IOException {
+        Ean barcode = new Ean();
+        barcode.setContent("261218075370");
+        int width = barcode.getWidth();
+        int height = barcode.getHeight();
+
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setPaint(Color.WHITE);
+        g2d.fillRect(0, 0, width, height);
+
+        Java2DRenderer renderer = new Java2DRenderer(g2d, 1, Color.WHITE, Color.BLACK);
+        renderer.render(barcode);
+
+        File file = new File(UUID.randomUUID()+".gif");
+        ImageIO.write(image, "gif", file);
     }
 
     /**
